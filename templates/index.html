@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Predictor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 480px;
+        }
+        h1 { text-align: center; color: #333; margin-bottom: 8px; }
+        p.subtitle { text-align: center; color: #888; margin-bottom: 30px; font-size: 14px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 600; font-size: 14px; }
+        input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+        input:focus { border-color: #667eea; outline: none; }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { opacity: 0.9; }
+        .result {
+            margin-top: 25px;
+            text-align: center;
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .result h2 { color: #667eea; font-size: 28px; }
+        .result p { color: #555; margin-top: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🏠 House Price Predictor</h1>
+    <p class="subtitle">Enter house details to get an estimated price</p>
+    <form action="/predict" method="POST">
+        <label>Living Area (sq ft)</label>
+        <input type="number" name="GrLivArea" placeholder="e.g. 1500" required>
+
+        <label>Bedrooms</label>
+        <input type="number" name="BedroomAbvGr" placeholder="e.g. 3" required>
+
+        <label>Full Bathrooms</label>
+        <input type="number" name="FullBath" placeholder="e.g. 2" required>
+
+        <label>Half Bathrooms</label>
+        <input type="number" name="HalfBath" placeholder="e.g. 1" required>
+
+        <label>Basement Area (sq ft)</label>
+        <input type="number" name="TotalBsmtSF" placeholder="e.g. 800" required>
+
+        <label>Garage Cars Capacity</label>
+        <input type="number" name="GarageCars" placeholder="e.g. 2" required>
+
+        <label>Year Built</label>
+        <input type="number" name="YearBuilt" placeholder="e.g. 2005" required>
+
+        <label>Overall Quality (1-10)</label>
+        <input type="number" name="OverallQual" min="1" max="10" placeholder="e.g. 7" required>
+
+        <label>Lot Area (sq ft)</label>
+        <input type="number" name="LotArea" placeholder="e.g. 8000" required>
+
+        <label>Fireplaces</label>
+        <input type="number" name="Fireplaces" placeholder="e.g. 1" required>
+
+        <button type="submit">Predict Price 🔍</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <p>Estimated House Price</p>
+        <h2>${{ prediction }}</h2>
+        <p>Based on the details you entered</p>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
